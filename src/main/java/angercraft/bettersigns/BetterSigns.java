@@ -25,7 +25,7 @@ public class BetterSigns
     }
 
     @SubscribeEvent
-    public static void onRightClicked(PlayerInteractEvent.RightClickBlock event) {
+    public void onRightClicked(PlayerInteractEvent.RightClickBlock event) {
         if(event.getWorld().getBlockState(event.getPos()).getBlock() instanceof WallSignBlock || event.getWorld().getBlockState(event.getPos()).getBlock() instanceof StandingSignBlock) {
             if(event.getItemStack().getItem() instanceof SignItem) {
                 return;
@@ -35,7 +35,7 @@ public class BetterSigns
                 SignTileEntity signTileEntity = (SignTileEntity) tileEntity;
                 signTileEntity.setPlayer(event.getPlayer());
                 try {
-                    ObfuscationReflectionHelper.findField(SignTileEntity.class, "isEditable").set(signTileEntity, true);
+                    ObfuscationReflectionHelper.findField(SignTileEntity.class, "field_145916_j").set(signTileEntity, true);
                     event.getPlayer().openSignEditor(signTileEntity);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
