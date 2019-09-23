@@ -20,7 +20,7 @@ displayName="Better Signs" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 # updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://github.com/ChristianANoeddeboe/BetterSignsMod" #optional
+displayURL="https://www.curseforge.com/minecraft/modpacks/better-signs" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="betterSignsLogo.png" #optional
 # A text field displayed in the mod UI
