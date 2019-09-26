@@ -1,0 +1,16 @@
+[
+{
+  "modid": "bettersigns",
+  "name": "Better Signs",
+  "description": "Simple mod to allow editing of existing signs, as well as placing signs without opening the sign GUI.",
+  "version": "0.1.0",
+  "mcversion": "(,1.12.2]",
+  "url": "https://www.curseforge.com/minecraft/mc-mods/better-signs",
+  "updateUrl": "",
+  "authorList": ["Angercraft"],
+  "credits": "Forge Developers",
+  "logoFile": "betterSignsLogo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,46 +1,46 @@
 package angercraft.bettersigns;
 
-import net.minecraft.block.StandingSignBlock;
-import net.minecraft.block.WallSignBlock;
-import net.minecraft.item.SignItem;
-import net.minecraft.tileentity.SignTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import org.apache.logging.log4j.LogManager;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
-@Mod(value = BetterSigns.MOD_ID)
+@Mod(modid = BetterSigns.MOD_ID, name = BetterSigns.NAME, version = BetterSigns.VERSION, acceptedMinecraftVersions = BetterSigns.MCVERSION)
 public class BetterSigns
 {
     public static final String MOD_ID = "bettersigns";
+    public static final String NAME = "Better Signs";
+    public static final String VERSION = "0.1.0";
+    public static final String MCVERSION = "(,1.12.2]";
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final String CLIENT_PROXY_CLASS = "angercraft.bettersigns.proxy.ClientProxy";
+    public static final String SERVER_PROXY_CLASS = "angercraft.bettersigns.proxy.ServerProxy";
 
-    public BetterSigns() {
-        MinecraftForge.EVENT_BUS.register(this);
+    @Instance
+    public static BetterSigns instance;
+
+    public static Logger logger;
+
+    @SidedProxy(clientSide = CLIENT_PROXY_CLASS, serverSide = SERVER_PROXY_CLASS)
+    private static angercraft.bettersigns.proxy.IProxy proxy;
+
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        logger = event.getModLog();
+        proxy.preInit();
     }
 
-    @SubscribeEvent
-    public void onRightClicked(PlayerInteractEvent.RightClickBlock event) {
-        if(event.getWorld().getBlockState(event.getPos()).getBlock() instanceof WallSignBlock || event.getWorld().getBlockState(event.getPos()).getBlock() instanceof StandingSignBlock) {
-            if(event.getItemStack().getItem() instanceof SignItem) {
-                return;
-            }
-            TileEntity tileEntity = event.getWorld().getTileEntity(event.getPos());
-            if(event.getPlayer().isSneaking() && tileEntity instanceof SignTileEntity) {
-                SignTileEntity signTileEntity = (SignTileEntity) tileEntity;
-                signTileEntity.setPlayer(event.getPlayer());
-                try {
-                    ObfuscationReflectionHelper.findField(SignTileEntity.class, "field_145916_j").set(signTileEntity, true);
-                    event.getPlayer().openSignEditor(signTileEntity);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        proxy.init();
+    }
+
+    @EventHandler
+    public void postinit(FMLPostInitializationEvent event) {
+        proxy.postInit();
     }
 }
