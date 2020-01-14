@@ -31,7 +31,7 @@ public class BetterSigns
                 return;
             }
             TileEntity tileEntity = event.getWorld().getTileEntity(event.getPos());
-            if(event.getPlayer().isSneaking() && tileEntity instanceof SignTileEntity) {
+            if(event.getPlayer().isCrouching() && tileEntity instanceof SignTileEntity) {
                 SignTileEntity signTileEntity = (SignTileEntity) tileEntity;
                 signTileEntity.setPlayer(event.getPlayer());
                 try {
