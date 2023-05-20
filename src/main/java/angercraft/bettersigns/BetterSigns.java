@@ -29,18 +29,18 @@ public class BetterSigns
 
     @SubscribeEvent
     public void onRightClicked(PlayerInteractEvent.RightClickBlock event) {
-        if(event.getWorld().getBlockState(event.getPos()).getBlock() instanceof WallSignBlock || event.getWorld().getBlockState(event.getPos()).getBlock() instanceof StandingSignBlock) {
+        if(event.getLevel().getBlockState(event.getPos()).getBlock() instanceof WallSignBlock || event.getLevel().getBlockState(event.getPos()).getBlock() instanceof StandingSignBlock) {
             LOGGER.log(Level.DEBUG, event);
             LOGGER.log(Level.DEBUG, event.getItemStack().getItem());
             System.out.println(event.getItemStack().getItem());
             if(event.getItemStack().getItem() instanceof SignItem) {
                 return;
             }
-            BlockEntity tileEntity = event.getWorld().getBlockEntity(event.getPos());
-            if(event.getPlayer().isCrouching() && tileEntity instanceof SignBlockEntity) {
+            BlockEntity tileEntity = event.getLevel().getBlockEntity(event.getPos());
+            if(event.getEntity().isCrouching() && tileEntity instanceof SignBlockEntity) {
                 SignBlockEntity signTileEntity = (SignBlockEntity) tileEntity;
                 signTileEntity.setEditable(true);
-                event.getPlayer().openTextEdit(signTileEntity);
+                event.getEntity().openTextEdit(signTileEntity);
             }
         }
     }
