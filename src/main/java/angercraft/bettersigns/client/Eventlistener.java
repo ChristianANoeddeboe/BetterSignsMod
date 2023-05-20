@@ -1,20 +1,21 @@
 package angercraft.bettersigns.client;
 
 import angercraft.bettersigns.BetterSigns;
-import angercraft.bettersigns.config.Keybinds;
 import net.minecraft.client.gui.screens.inventory.SignEditScreen;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ScreenOpenEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import static angercraft.bettersigns.config.Keybinds.noSignGui;
 
 @Mod.EventBusSubscriber(modid = BetterSigns.MOD_ID, value = Dist.CLIENT)
 public class Eventlistener {
 
     @SubscribeEvent
-    public static void onRenderGui(ScreenOpenEvent event) {
+    public static void onRenderGui(ScreenEvent.Opening event) {
         if(event.getScreen() instanceof SignEditScreen) {
-            if(Keybinds.noSignGui.isDown()) {
+            if(noSignGui.get().isDown()) {
                 event.setCanceled(true);
             }
         }
