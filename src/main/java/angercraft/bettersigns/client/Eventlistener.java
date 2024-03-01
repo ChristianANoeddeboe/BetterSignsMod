@@ -19,6 +19,5 @@ public class Eventlistener {
                 event.setCanceled(true);
             }
         }
-        System.out.println(event.getScreen().toString());
     }
 }
