@@ -1,7 +1,7 @@
 package angercraft.bettersigns.client;
 
 import angercraft.bettersigns.BetterSigns;
-import net.minecraft.client.gui.screens.inventory.SignEditScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,10 +14,11 @@ public class Eventlistener {
 
     @SubscribeEvent
     public static void onRenderGui(ScreenEvent.Opening event) {
-        if(event.getScreen() instanceof SignEditScreen) {
-            if(noSignGui.get().isDown()) {
+        if (event.getScreen() instanceof AbstractSignEditScreen) {
+            if (noSignGui.get().isDown()) {
                 event.setCanceled(true);
             }
         }
+        System.out.println(event.getScreen().toString());
     }
 }
